@@ -42,7 +42,7 @@ class RandomWordsState extends State<RandomWords> {
   Widget _buildSuggestions() {
     return new ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i){
+      itemBuilder: (context, i) {
         if (i.isOdd) return new Divider();
         // ~/ 表示 i 除以 2，返回向下取整值
         final index = i ~/ 2;
@@ -80,31 +80,27 @@ class RandomWordsState extends State<RandomWords> {
 
   void _pushSaved() {
     Navigator.of(context).push(
-      new MaterialPageRoute(
-          builder: (context) {
-            final tiles = _saved.map((pair) {
-              return new ListTile(
-                title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-              },
-            );
-            final divided = ListTile
-                .divideTiles(
-                  tiles: tiles,
-                  context: context
-                )
-                .toList();
-
-            return new Scaffold(
-              appBar: new AppBar(
-                title: new Text('收藏夹'),
+      new MaterialPageRoute(builder: (context) {
+        final tiles = _saved.map(
+          (pair) {
+            return new ListTile(
+              title: new Text(
+                pair.asPascalCase,
+                style: _biggerFont,
               ),
-              body: new ListView(children: divided),
             );
-          }),
+          },
+        );
+        final divided =
+            ListTile.divideTiles(tiles: tiles, context: context).toList();
+
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text('收藏夹'),
+          ),
+          body: new ListView(children: divided),
+        );
+      }),
     );
   }
 }
