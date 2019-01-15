@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:movie_top_250/movieApi.dart';
-import 'package:movie_top_250/movieModel.dart';
-import 'package:movie_top_250/movieListViewRowWidget.dart';
+import 'package:movie_top_250/Service/movieApi.dart';
+import 'package:movie_top_250/Model/movieModel.dart';
+import 'package:movie_top_250/View/movieListViewRowWidget.dart';
 
 
-class DouBanMovieWidget extends StatefulWidget {
+class MovieWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _DouBanMovieState();
   }
 }
 
-class _DouBanMovieState extends State<DouBanMovieWidget> {
+class _DouBanMovieState extends State<MovieWidget> {
   // 数据源
   List<Movie> movies = [];
   // 分页
@@ -74,7 +74,7 @@ class _DouBanMovieState extends State<DouBanMovieWidget> {
               if (movies.length - index == 15) {
                 _requestMoreData(++page);
               }
-              return buildListRow(movies[index]);
+              return buildListRow(movies[index], context);
             }
           });
     } else {

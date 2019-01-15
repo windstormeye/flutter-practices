@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:movie_top_250/movieModel.dart';
+import 'package:movie_top_250/Model/movieModel.dart';
+import 'package:movie_top_250/View/movieDetailWidget.dart';
 
-Widget buildListRow(Movie movie) {
-  return Padding(
-    padding: EdgeInsets.all(10),
-    child: new Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          new Container(
-            width: 100,
-            height: 150,
-            decoration: new BoxDecoration(
-              image: DecorationImage(image: NetworkImage(movie.poster)),
-              borderRadius: new BorderRadius.all(
-                const Radius.circular(8.0),
+Widget buildListRow(Movie movie, BuildContext context) {
+  // TODO: 这样的跳转是根据布局进行的，如果布局未充满，则跳转失效
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SecondScreen()
+          )
+      );
+    },
+    child: Padding(
+      padding: EdgeInsets.all(10),
+      child: new Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              width: 100,
+              height: 150,
+              decoration: new BoxDecoration(
+                image: DecorationImage(image: NetworkImage(movie.poster)),
+                borderRadius: new BorderRadius.all(
+                  const Radius.circular(8.0),
+                ),
               ),
             ),
-          ),
-          _buildTextContent(movie),
-        ]
-    ),
+            _buildTextContent(movie),
+          ]
+      ),
+    )
   );
 }
 

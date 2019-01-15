@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:movie_top_250/movieModel.dart';
+import 'package:movie_top_250/Model/movieModel.dart';
 
 class MovieAPI {
   Future<Movies> getMovieList(int start) async {
@@ -12,5 +12,15 @@ class MovieAPI {
     var responseBody = await response.transform(utf8.decoder).join();
     Map data = json.decode(responseBody);
     return Movies.fromJSON(data);
+  }
+
+  Future<MovieDetail> getMovieDetail(String movieId) async {
+    var client = HttpClient();
+    var request = await client.getUrl(Uri.parse(
+        'https://api.douban.com/v2/movie/subject/$movieId'));
+    var response = await request.close();
+    var responseBody = await response.transform(utf8.decoder).join();
+    Map data = json.decode(responseBody);
+    return MovieDetail.fromJSON(data);
   }
 }

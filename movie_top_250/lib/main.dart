@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_top_250/movieListViewWidget.dart';
+import 'package:movie_top_250/View/movieListViewWidget.dart';
 
 
 void main() => runApp(App());
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
       ),
-      home: DouBanMovieWidget(),
+      home: MovieWidget(),
     );
   }
 }
