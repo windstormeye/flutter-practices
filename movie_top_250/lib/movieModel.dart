@@ -31,15 +31,15 @@ class Movie {
   }
 }
 
-class MovieEnvelope {
+class Movies {
   int count;
   int start;
   int total;
   List<Movie> movies;
 
-  MovieEnvelope({this.count, this.start, this.total, this.movies});
+  Movies({this.count, this.start, this.total, this.movies});
 
-  MovieEnvelope.fromJSON(Map data) {
+   Movies.fromJSON(Map data) {
     this.count = data['count'];
     this.start = data['start'];
     this.total = data['total'];
