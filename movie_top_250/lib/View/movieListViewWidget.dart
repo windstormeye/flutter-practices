@@ -3,7 +3,6 @@ import 'package:movie_top_250/Service/movieApi.dart';
 import 'package:movie_top_250/Model/movieModel.dart';
 import 'package:movie_top_250/View/movieListViewRowWidget.dart';
 
-
 class MovieWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -61,22 +60,18 @@ class _DouBanMovieState extends State<MovieWidget> {
   // body List Widget
   Widget _buildList() {
     if (movies.length != 0) {
-      return ListView.builder(
-        // 加了分割线，长度需要为两倍
-          itemCount: movies.length * 2,
+      return ListView.separated(
           itemBuilder: (context, index) {
-            if (index.isOdd) {
-              // 奇数
-              return new Divider();
-            } else {
-              index = index ~/ 2;
-              // 还剩 15 条数据的时去拉取新数据
-              if (movies.length - index == 15) {
-                _requestMoreData(++page);
-              }
-              return buildListRow(movies[index], context);
+            // 还剩 15 条数据的时去拉取新数据
+            if (movies.length - index == 15) {
+              _requestMoreData(++page);
             }
-          });
+            return buildListRow(index, movies[index], context);
+          },
+          separatorBuilder: (context, index) => Divider(
+                height: 1,
+              ),
+          itemCount: movies.length);
     } else {
       return Center(
         child: CircularProgressIndicator(),
