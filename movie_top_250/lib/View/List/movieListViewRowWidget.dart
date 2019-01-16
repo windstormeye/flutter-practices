@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:movie_top_250/Model/movieModel.dart';
-import 'package:movie_top_250/View/movieDetailWidget.dart';
+import 'package:movie_top_250/View/Detail/movieDetailWidget.dart';
 
 Widget buildListRow(int index, Movie movie, BuildContext context) {
   // TODO: 这样的跳转是根据布局进行的，如果布局未充满，则跳转失效
-  return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MovieDetailWidget(movie: movie)));
-      },
-      child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildRank(index),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    moviePoster(movie),
-                    _buildTextContent(movie),
-                  ]
-              ),
-            ],
-          )
-      )
+  return new Container(
+    width: MediaQuery.of(context).size.width,
+    child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MovieDetailWidget(movie: movie, index: index)));
+        },
+        child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildRank(index),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildMoviePoster(movie),
+                      _buildTextContent(movie),
+                    ]
+                ),
+              ],
+            )
+        )
+    ),
   );
 }
 
-Widget moviePoster(Movie movie) {
+Widget _buildMoviePoster(Movie movie) {
   return new Container(
     width: 100,
     height: 150,
@@ -58,7 +61,8 @@ Widget _buildRank(int index) {
                     fontWeight: FontWeight.w600))),
         decoration: new BoxDecoration(
             color: Colors.orangeAccent,
-            borderRadius: BorderRadius.all(Radius.circular(5)))),
+            borderRadius: BorderRadius.all(Radius.circular(5)))
+    ),
   );
 }
 
@@ -108,10 +112,9 @@ Widget _buildTitle(Movie movie) {
                   color: Color.fromRGBO(150, 150, 150, 1),
                 ),
               )
-            ]),
+            ]
+        ),
         maxLines: 2,
-        softWrap: true,
-        overflow: TextOverflow.ellipsis,
       )
     ],
   );
@@ -161,12 +164,9 @@ Widget _buildDetails(Movie movie) {
     detailsString += ' ' + name;
   }
 
-  return new Container(
-      //TODO: 这需要根据屏幕宽度进行设置
-      width: 230.0,
-      child: new Text(
-        detailsString,
-        softWrap: true,
-        style: TextStyle(color: Color.fromRGBO(130, 130, 130, 1)),
-      ));
+  return new Text(
+    detailsString,
+    maxLines: 2,
+    style: TextStyle(color: Color.fromRGBO(130, 130, 130, 1)),
+  );
 }

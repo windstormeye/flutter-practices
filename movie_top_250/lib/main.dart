@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_top_250/View/movieListViewWidget.dart';
+import 'package:movie_top_250/View/List/movieListViewWidget.dart';
 
 
 void main() => runApp(App());

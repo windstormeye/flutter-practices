@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_top_250/Service/movieApi.dart';
 import 'package:movie_top_250/Model/movieModel.dart';
-import 'package:movie_top_250/View/movieListViewRowWidget.dart';
+import 'package:movie_top_250/View/List/movieListViewRowWidget.dart';
 
 class MovieWidget extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _DouBanMovieState extends State<MovieWidget> {
         title: Text('豆瓣电影 Top250'),
       ),
       body: new RefreshIndicator(
-        child: _buildList(),
+        child: _buildList(context),
         onRefresh: _requestData,
         color: Colors.black,
       ),
@@ -58,7 +58,8 @@ class _DouBanMovieState extends State<MovieWidget> {
   }
 
   // body List Widget
-  Widget _buildList() {
+  Widget _buildList(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
     if (movies.length != 0) {
       return ListView.separated(
           itemBuilder: (context, index) {
@@ -66,7 +67,10 @@ class _DouBanMovieState extends State<MovieWidget> {
             if (movies.length - index == 15) {
               _requestMoreData(++page);
             }
-            return buildListRow(index, movies[index], context);
+            return new Container(
+              width: screenWidth,
+              child: buildListRow(index, movies[index], context),
+            );
           },
           separatorBuilder: (context, index) => Divider(
                 height: 1,

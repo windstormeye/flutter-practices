@@ -27,10 +27,14 @@ class MovieDetail {
   String title;
   // 上映年份
   String year;
+  // 原名
+  String originalTitle;
   // 所属国家或地区
   List<String> countries;
   // 评分
   String rating;
+  // "想看"人数
+  String wishCount;
   // 星星
   String stars;
   // 高清晰度海报
@@ -58,6 +62,7 @@ class MovieDetail {
     this.director,
     this.casts,
     this.summary,
+    this.wishCount,
   });
 
   MovieDetail.fromJSON(Map<String, dynamic> json) {
@@ -66,6 +71,8 @@ class MovieDetail {
     this.summary = json['summary'];
     this.poster = json['images']['large'];
     this.ratingsCount = json['ratings_count'];
+    this.originalTitle = json['original_title'];
+    this.wishCount = json['wish_count'].toString();
 
     this.rating = json['rating']['average'].toString();
     this.stars = json['rating']['stars'].toString();
@@ -74,18 +81,18 @@ class MovieDetail {
     this.genres = new List<String>.from(json['genres']);
 
     List<MovieMember> castsMembers = [];
-    (json['casts'] as List).forEach((item) {
+    (json['directors'] as List).forEach((item) {
       MovieMember movieMember = MovieMember.fromJSON(item);
       castsMembers.add(movieMember);
     });
-    this.casts = castsMembers;
+    this.director = castsMembers;
 
     List<MovieMember> directorMembers = [];
     (json['casts'] as List).forEach((item) {
       MovieMember movieMember = MovieMember.fromJSON(item);
       directorMembers.add(movieMember);
     });
-    this.director = directorMembers;
+    this.casts = directorMembers;
   }
 }
 
